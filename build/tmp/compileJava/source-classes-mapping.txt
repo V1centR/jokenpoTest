@@ -1,0 +1,8 @@
+br/com/jokenpo/model/GameRules.java
+ br.com.jokenpo.model.GameRules
+br/com/jokenpo/model/Players.java
+ br.com.jokenpo.model.Players
+br/com/jokenpo/JokenpoTestApplication.java
+ br.com.jokenpo.JokenpoTestApplication
+br/com/jokenpo/controller/JokenpoController.java
+ br.com.jokenpo.controller.JokenpoController

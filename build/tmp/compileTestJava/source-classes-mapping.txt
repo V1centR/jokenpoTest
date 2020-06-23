@@ -1,0 +1,2 @@
+br/com/jokenpo/JokenpoTestApplicationTests.java
+ br.com.jokenpo.JokenpoTestApplicationTests
