@@ -15,7 +15,7 @@ import br.com.jokenpo.model.Rules;
 @RequestMapping("/jokenpoapi")
 public class JokenpoController {
 	
-	@PostMapping(value="/testeplay", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/play", produces = MediaType.APPLICATION_JSON_VALUE)
 	private Player verificarJogada(@RequestBody ObjectNode data) {
 		
 		String handPlayer1 = data.get("player1").get(0).get("hand").asText();
