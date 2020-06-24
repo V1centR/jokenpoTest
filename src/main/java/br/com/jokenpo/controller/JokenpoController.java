@@ -22,6 +22,7 @@ public class JokenpoController {
 		String handPlayer1Name = data.get("player1").get(0).get("nome").asText();
 		
 		String handPlayer2 = data.get("player2").get(0).get("hand").asText();
+		String handPlayer1Name2 = data.get("player2").get(0).get("nome").asText();
 		
 		System.out.println("NUMERO de PLAYERS:::: " + data.size());
 		
@@ -48,7 +49,11 @@ public class JokenpoController {
 			
 		}else {
 			
-			return null;
+			player1.setHand(execHandPlayer2.toString());
+			player1.setNome(handPlayer1Name2);
+			player1.setStatus("VENCEU");
+			
+			return player1;
 		}
 		
 }	

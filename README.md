@@ -5,7 +5,7 @@
 $ git clone https://github.com/V1centR/jokenpoTest.git
 $ gradle build; gradle bootRun
 ```
-**POST** localhost:8080/play
+**POST** localhost:8080/jokenpoapi/play
 ```sh
 {
       "player1":[{"nome": "Miguel","hand": "papel"}],
