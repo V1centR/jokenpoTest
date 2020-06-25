@@ -5,9 +5,9 @@ br/com/jokenpo/model/Rules.java
  br.com.jokenpo.model.Rules$3
  br.com.jokenpo.model.Rules$4
  br.com.jokenpo.model.Rules$5
-br/com/jokenpo/model/Player.java
- br.com.jokenpo.model.Player
 br/com/jokenpo/JokenpoTestApplication.java
  br.com.jokenpo.JokenpoTestApplication
 br/com/jokenpo/controller/JokenpoController.java
  br.com.jokenpo.controller.JokenpoController
+br/com/jokenpo/model/Player.java
+ br.com.jokenpo.model.Player

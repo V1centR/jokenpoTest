@@ -29,7 +29,7 @@ public class JokenpoController {
 		String handPlayer2Name = extUserInfo(data,"player2","nome");
 		
 		//Setup Players
-		Player player = new Player();
+		
 		//Player player2 = new Player();
 		
 		Rules execHandPlayer1 = setHandPlayer(handPlayer1);
@@ -51,41 +51,46 @@ public class JokenpoController {
 		//################
 		
 			
-		if(execHandPlayer1.ganha(execHandPlayer2) && execHandPlayer1.ganha(execHandPlayer3)) {			
+		if(execHandPlayer1.ganha(execHandPlayer2) || execHandPlayer1.ganha(execHandPlayer3)) {			
 			
-			player.setHand(execHandPlayer1.toString());
-			player.setNome(handPlayer1Name);
-			player.setStatus("VENCEU");
+			Player namedPlayer = setupPlayer(handPlayer1Name, execHandPlayer1, "VENCEU");
 			
-			return player;
+			return namedPlayer;
 			
-		}else{
+		}else if(execHandPlayer2.ganha(execHandPlayer1) || execHandPlayer1.ganha(execHandPlayer3)){
 			
-			if(execHandPlayer2.ganha(execHandPlayer1) && execHandPlayer1.ganha(execHandPlayer3)) {
-				
-				player.setHand(execHandPlayer2.toString());
-				player.setNome(handPlayer2Name);
-				player.setStatus("VENCEU");
-				
-				return player;
-				
-			} else {
-				
-				if(execHandPlayer3.ganha(execHandPlayer2) && execHandPlayer3.ganha(execHandPlayer1)) {
-					
-					player.setHand(execHandPlayer3.toString());
-					player.setNome(handPlayerName3);
-					player.setStatus("VENCEU");
-					
-					return player;
-					}
-				
-			}
+			Player namedPlayer = setupPlayer(handPlayer2Name, execHandPlayer2, "VENCEU");
 			
-			return player;
-		} 
+			return namedPlayer;
+				
+		} else if(execHandPlayer3.ganha(execHandPlayer1) || execHandPlayer3.ganha(execHandPlayer2)){
+			
+			Player namedPlayer = setupPlayer(handPlayerName3, execHandPlayer3, "VENCEU");
+			
+			return namedPlayer;
+			
+		} else {
+			
+			
+			Player namedPlayer = new Player();
+			
+			namedPlayer.setMessage("O jogo empatou!");
+			
+			return namedPlayer;
+		}
 
 }	
+	
+	public Player setupPlayer(String name, Object hand, String status) {
+		
+		Player player = new Player();
+		
+		player.setHand(hand.toString());
+		player.setNome(name);
+		player.setStatus("VENCEU");
+		
+		return player;
+	}
 	
 	private Rules setHandPlayer(String handPlayer) {
 		
