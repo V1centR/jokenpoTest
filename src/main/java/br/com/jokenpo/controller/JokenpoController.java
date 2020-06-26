@@ -1,9 +1,14 @@
 package br.com.jokenpo.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -20,7 +25,7 @@ public class JokenpoController {
 	private String handPlayerName3 = null;
 	
 	@PostMapping(value="/play", produces = MediaType.APPLICATION_JSON_VALUE)
-	private Player verificarJogada(@RequestBody ObjectNode data) {
+	private Map<String, String> verificarJogada(@RequestBody ObjectNode data) {
 		
 		String handPlayer1 = extUserInfo(data,"player1","hand");
 		String handPlayer1Name = extUserInfo(data,"player1","nome");
@@ -51,35 +56,43 @@ public class JokenpoController {
 		//################
 		
 			
-		if(execHandPlayer1.ganha(execHandPlayer2) || execHandPlayer1.ganha(execHandPlayer3)) {			
+		if(execHandPlayer1.ganha(execHandPlayer2) && execHandPlayer1.ganha(execHandPlayer3)) {			
 			
-			Player namedPlayer = setupPlayer(handPlayer1Name, execHandPlayer1, "VENCEU");
+			return responseGame(handPlayer1Name, execHandPlayer1, "VENCEU",false);
 			
-			return namedPlayer;
+		}else if(execHandPlayer2.ganha(execHandPlayer1) && execHandPlayer2.ganha(execHandPlayer3)){
 			
-		}else if(execHandPlayer2.ganha(execHandPlayer1) || execHandPlayer1.ganha(execHandPlayer3)){
-			
-			Player namedPlayer = setupPlayer(handPlayer2Name, execHandPlayer2, "VENCEU");
-			
-			return namedPlayer;
+			return responseGame(handPlayer2Name, execHandPlayer2, "VENCEU", false);
 				
-		} else if(execHandPlayer3.ganha(execHandPlayer1) || execHandPlayer3.ganha(execHandPlayer2)){
+		} else if(execHandPlayer3.ganha(execHandPlayer1) && execHandPlayer3.ganha(execHandPlayer2)){
 			
-			Player namedPlayer = setupPlayer(handPlayerName3, execHandPlayer3, "VENCEU");
-			
-			return namedPlayer;
+			return responseGame(handPlayerName3, execHandPlayer3, "VENCEU", false);
 			
 		} else {
 			
-			
-			Player namedPlayer = new Player();
-			
-			namedPlayer.setMessage("O jogo empatou!");
-			
-			return namedPlayer;
+			return responseGame(handPlayerName3, execHandPlayer3, "VENCEU", true);
+
 		}
 
 }	
+	//@GetMapping(value="/doubledata", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, String> responseGame(String name, Object hand, String status, boolean draw){
+		
+		Map<String, String> coordinates = new HashMap<>();
+	    
+	    if(!draw) {
+	    	
+	    	coordinates.put("Player", name);
+		    coordinates.put("jogada", hand.toString());
+		    coordinates.put("status", "VENCEDOR");
+	    	
+	    }else {
+	    	coordinates.put("status", "EMPATE!");
+	    	coordinates.put("jogada", hand.toString());
+	    }
+		
+		return coordinates;
+	}
 	
 	public Player setupPlayer(String name, Object hand, String status) {
 		
